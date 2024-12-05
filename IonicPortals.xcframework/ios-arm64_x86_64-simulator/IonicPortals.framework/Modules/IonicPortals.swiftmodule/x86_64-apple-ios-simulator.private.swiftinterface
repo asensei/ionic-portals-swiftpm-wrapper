@@ -1,0 +1,229 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.0.2 effective-5.10 (swiftlang-6.0.2.1.2 clang-1600.0.26.4)
+// swift-module-flags: -target x86_64-apple-ios13.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name IonicPortals
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface
+import Capacitor
+import Combine
+import Foundation
+import IonicLiveUpdates
+import Swift
+import SwiftUI
+import UIKit
+import WebKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public struct AssetMap {
+  public var name: Swift.String
+  public var virtualPath: Swift.String
+  public var bundle: Foundation.Bundle
+  public var startDir: Swift.String {
+    get
+  }
+  public init(name: Swift.String, virtualPath: Swift.String? = nil, bundle: Foundation.Bundle = .main, startDir: Swift.String)
+}
+extension Foundation.JSONDecoder {
+  @available(*, deprecated, renamed: "decodeJsObject")
+  public func decodeJSObject<T>(_ type: T.Type, from object: Capacitor.JSObject) throws -> T where T : Swift.Decodable
+  @available(*, deprecated, message: "Use JSValueDecoder from Capacitor. This will be removed in the next release.")
+  public func decodeJsObject<T>(_ type: T.Type, from object: Capacitor.JSObject) throws -> T where T : Swift.Decodable
+}
+extension Foundation.JSONEncoder {
+  @available(*, deprecated, renamed: "encodeJsObject")
+  public func encodeJSObject<T>(_ value: T) throws -> any Capacitor.JSValue where T : Swift.Encodable
+  @available(*, deprecated, message: "Use JSValueEncoder from Capacitor. This will be removed in the next release.")
+  public func encodeJsObject<T>(_ value: T) throws -> Capacitor.JSObject where T : Swift.Encodable
+}
+extension IonicPortals.Portal {
+  public struct LiveUpdateNotConfigured : Swift.Error {
+  }
+  public func sync() async throws -> IonicLiveUpdates.LiveUpdateManager.SyncResult
+  public static func sync(_ portals: [IonicPortals.Portal]) -> IonicPortals.ParallelLiveUpdateSyncGroup
+}
+extension Swift.Array where Element == IonicPortals.Portal {
+  public func sync() -> IonicPortals.ParallelLiveUpdateSyncGroup
+}
+public typealias ParallelLiveUpdateSyncGroup = IonicPortals.ParallelAsyncSequence<Swift.Result<IonicLiveUpdates.LiveUpdateManager.SyncResult, any Swift.Error>>
+public struct ParallelAsyncSequence<T> : _Concurrency.AsyncSequence {
+  public typealias Element = IonicPortals.ParallelAsyncSequence<T>.Iterator.Element
+  public func makeAsyncIterator() -> IonicPortals.ParallelAsyncSequence<T>.Iterator
+  public typealias AsyncIterator = IonicPortals.ParallelAsyncSequence<T>.Iterator
+  #if compiler(>=5.3) && $AssociatedTypeImplements
+  @available(iOS 18.0, tvOS 18.0, watchOS 11.0, visionOS 2.0, macOS 15.0, *)
+  @_implements(_Concurrency.AsyncSequence, Failure) public typealias __AsyncSequence_Failure = Swift.Never
+  #else
+  @available(iOS 18.0, tvOS 18.0, watchOS 11.0, visionOS 2.0, macOS 15.0, *)
+  public typealias __AsyncSequence_Failure = Swift.Never
+  #endif
+}
+extension IonicPortals.ParallelAsyncSequence {
+  public struct Iterator : _Concurrency.AsyncIteratorProtocol {
+    public mutating func next() async -> T?
+    public typealias Element = T
+    #if compiler(>=5.3) && $AssociatedTypeImplements
+    @available(iOS 18.0, tvOS 18.0, watchOS 11.0, visionOS 2.0, macOS 15.0, *)
+    @_implements(_Concurrency.AsyncIteratorProtocol, Failure) public typealias __AsyncIteratorProtocol_Failure = Swift.Never
+    #else
+    @available(iOS 18.0, tvOS 18.0, watchOS 11.0, visionOS 2.0, macOS 15.0, *)
+    public typealias __AsyncIteratorProtocol_Failure = Swift.Never
+    #endif
+  }
+}
+public struct Portal {
+  public var name: Swift.String
+  public var startDir: Swift.String
+  public var devModeEnabled: Swift.Bool
+  public var index: Swift.String
+  public var bundle: Foundation.Bundle
+  public var initialContext: Capacitor.JSObject
+  public var plugins: [IonicPortals.Portal.Plugin]
+  public var liveUpdateManager: IonicLiveUpdates.LiveUpdateManager
+  public var liveUpdateConfig: IonicLiveUpdates.LiveUpdate? {
+    get
+    set
+  }
+  public var assetMaps: [IonicPortals.AssetMap]
+  public init(name: Swift.String, startDir: Swift.String? = nil, index: Swift.String = "index.html", devModeEnabled: Swift.Bool = true, bundle: Foundation.Bundle = .main, initialContext: Capacitor.JSObject = [:], assetMaps: [IonicPortals.AssetMap] = [], plugins: [IonicPortals.Portal.Plugin] = [], liveUpdateManager: IonicLiveUpdates.LiveUpdateManager = .shared, liveUpdateConfig: IonicLiveUpdates.LiveUpdate? = nil)
+}
+extension IonicPortals.Portal {
+  public func adding(_ plugins: [IonicPortals.Portal.Plugin]) -> IonicPortals.Portal
+  public func adding(_ plugin: IonicPortals.Portal.Plugin) -> IonicPortals.Portal
+  public func adding(_ plugin: Capacitor.CAPPlugin) -> IonicPortals.Portal
+  public func adding(_ pluginType: Capacitor.CAPPlugin.Type) -> IonicPortals.Portal
+  public func adding(_ plugins: [Capacitor.CAPPlugin]) -> IonicPortals.Portal
+  public func adding(_ pluginTypes: [Capacitor.CAPPlugin.Type]) -> IonicPortals.Portal
+}
+extension IonicPortals.Portal : Swift.ExpressibleByStringLiteral {
+  public init(stringLiteral value: Swift.StringLiteralType)
+  public typealias ExtendedGraphemeClusterLiteralType = Swift.StringLiteralType
+  public typealias StringLiteralType = Swift.StringLiteralType
+  public typealias UnicodeScalarLiteralType = Swift.StringLiteralType
+}
+extension IonicPortals.Portal {
+  public enum Plugin {
+    case type(Capacitor.CAPPlugin.Type)
+    case instance(Capacitor.CAPPlugin)
+  }
+}
+extension IonicPortals.Portal {
+  public func configuring<Value>(_ keyPath: Swift.ReferenceWritableKeyPath<Capacitor.InstanceDescriptor, Value>, _ value: Value) -> IonicPortals.Portal
+  public mutating func configure<Value>(_ keyPath: Swift.ReferenceWritableKeyPath<Capacitor.InstanceDescriptor, Value>, _ value: Value)
+}
+@_hasMissingDesignatedInitializers @objc public class IONPortal : ObjectiveC.NSObject {
+  @objc public var name: Swift.String {
+    @objc get
+  }
+  @objc public var bundle: Foundation.Bundle {
+    @objc get
+    @objc set
+  }
+  @objc public var startDir: Swift.String {
+    @objc get
+  }
+  @objc public var initialContext: [Swift.String : Any] {
+    @objc get
+    @objc set
+  }
+  @objc public func setLiveUpdateConfiguration(appId: Swift.String, channel: Swift.String, syncImmediately: Swift.Bool)
+  @objc deinit
+}
+extension IonicPortals.IONPortal {
+  @objc convenience dynamic public init(name: Swift.String, startDir: Swift.String?, initialContext: [Swift.String : Any]?)
+  @objc convenience dynamic public init(name: Swift.String, startDir: Swift.String?, bundle: Foundation.Bundle, initialContext: [Swift.String : Any]?)
+}
+@objc(IONPortalUIView) @_Concurrency.MainActor @preconcurrency public class PortalUIView : UIKit.UIView {
+  @objc @_Concurrency.MainActor @preconcurrency public var bridge: Capacitor.CapacitorBridge {
+    @objc get
+  }
+  @_Concurrency.MainActor @preconcurrency required public init(portal: IonicPortals.Portal)
+  @objc @_Concurrency.MainActor @preconcurrency convenience public init(portal: IonicPortals.IONPortal)
+  @_Concurrency.MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+extension IonicPortals.PortalUIView {
+  @_Concurrency.MainActor @preconcurrency public func setServerBasePath(path: Swift.String)
+  @objc @_Concurrency.MainActor @preconcurrency dynamic public func reload()
+}
+extension IonicPortals.PortalUIView : Capacitor.CAPBridgeDelegate {
+  @_Concurrency.MainActor @preconcurrency public var bridgedWebView: WebKit.WKWebView? {
+    get
+  }
+  @_Concurrency.MainActor @preconcurrency public var bridgedViewController: UIKit.UIViewController? {
+    get
+  }
+}
+@_Concurrency.MainActor @preconcurrency public struct PortalView : SwiftUI.UIViewRepresentable {
+  @_Concurrency.MainActor @preconcurrency public init(portal: IonicPortals.Portal, onBridgeAvailable: @escaping (Capacitor.CapacitorBridge) -> Swift.Void = { _ in })
+  @_Concurrency.MainActor @preconcurrency public func makeUIView(context: IonicPortals.PortalView.Context) -> IonicPortals.PortalUIView
+  @_Concurrency.MainActor @preconcurrency public func updateUIView(_ uiView: IonicPortals.PortalUIView, context: IonicPortals.PortalView.Context)
+  public typealias Body = Swift.Never
+  public typealias Coordinator = Swift.Void
+  public typealias UIViewType = IonicPortals.PortalUIView
+}
+@objc(IONPortalsPlugin) final public class PortalsPlugin : Capacitor.CAPInstancePlugin, Capacitor.CAPBridgedPlugin {
+  @objc final public let identifier: Swift.String
+  @objc final public let jsName: Swift.String
+  @objc final public let pluginMethods: [Capacitor.CAPPluginMethod]
+  public init(pubsub: IonicPortals.PortalsPubSub = .shared)
+  @objc override final public func addEventListener(_ eventName: Swift.String, listener: Capacitor.CAPPluginCall)
+  @objc deinit
+}
+extension IonicPortals.PortalsPubSub {
+  public struct Publisher : Combine.Publisher {
+    public typealias Output = IonicPortals.SubscriptionResult
+    public typealias Failure = Swift.Never
+    public func receive<S>(subscriber: S) where S : Combine.Subscriber, S.Failure == Swift.Never, S.Input == IonicPortals.SubscriptionResult
+  }
+  public func publisher(for topic: Swift.String) -> IonicPortals.PortalsPubSub.Publisher
+  public static func publisher(for topic: Swift.String) -> IonicPortals.PortalsPubSub.Publisher
+}
+extension IonicPortals.PortalsPubSub.Publisher {
+  public struct CastingError<T> : Swift.Error, Swift.CustomStringConvertible {
+    public let description: Swift.String
+  }
+  public func data() -> Combine.AnyPublisher<(any Capacitor.JSValue)?, Swift.Never>
+  public func data<T>(as type: T.Type = T.self) -> Combine.AnyPublisher<T?, Swift.Never> where T : Capacitor.JSValue
+  public func tryData<T>(as type: T.Type = T.self) -> Combine.AnyPublisher<T, any Swift.Error> where T : Capacitor.JSValue
+  public func decodeData<T>(_ type: T.Type = T.self, decoder: Capacitor.JSValueDecoder = JSValueDecoder()) -> Combine.AnyPublisher<T, any Swift.Error> where T : Swift.Decodable
+}
+extension IonicPortals.PortalsPubSub {
+  public static func subscribe(to topic: Swift.String) -> _Concurrency.AsyncStream<IonicPortals.SubscriptionResult>
+  public func subscribe(to topic: Swift.String) -> _Concurrency.AsyncStream<IonicPortals.SubscriptionResult>
+}
+public class PortalsPubSub {
+  public init()
+  public func subscribe(to topic: Swift.String, _ callback: @escaping (IonicPortals.SubscriptionResult) -> Swift.Void) -> Combine.AnyCancellable
+  public func publish(_ message: (any Capacitor.JSValue)? = nil, to topic: Swift.String)
+  public func publish<Message>(_ message: Message, to topic: Swift.String) throws where Message : Swift.Encodable
+  public static let shared: IonicPortals.PortalsPubSub
+  public static func subscribe(to topic: Swift.String, _ callback: @escaping (IonicPortals.SubscriptionResult) -> Swift.Void) -> Combine.AnyCancellable
+  public static func publish(_ message: (any Capacitor.JSValue)? = nil, to topic: Swift.String)
+  @objc deinit
+}
+public struct SubscriptionResult {
+  public var topic: Swift.String
+  public var data: (any Capacitor.JSValue)?
+  public func decodeData<T>(as type: T.Type = T.self, with decoder: Capacitor.JSValueDecoder = JSValueDecoder()) throws -> T? where T : Swift.Decodable
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class IONPortalsPubSub : ObjectiveC.NSObject {
+  @objc(subscribeToTopic:callback:) public static func subscribe(topic: Swift.String, callback: @escaping ([Swift.String : Any]) -> Swift.Void) -> Any
+  @objc(publishMessage:toTopic:) public static func publish(message: Any?, topic: Swift.String)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc(IONPortalsRegistrationManager) public class PortalsRegistrationManager : ObjectiveC.NSObject {
+  @objc public static let shared: IonicPortals.PortalsRegistrationManager
+  @objc public var isRegistered: Swift.Bool {
+    @objc get
+  }
+  @objc public func register(key: Swift.String)
+  @objc deinit
+}
+@objc public class WebVitalsPlugin : Capacitor.CAPInstancePlugin, Capacitor.CAPBridgedPlugin {
+  @objc final public let jsName: Swift.String
+  @objc final public let identifier: Swift.String
+  @objc final public let pluginMethods: [Capacitor.CAPPluginMethod]
+  public init(_ onFirstContentfulPaint: @escaping (_ portalName: Swift.String, _ duration: Swift.Double) -> Swift.Void)
+  @objc override dynamic public func load()
+  @objc deinit
+}
+extension IonicPortals.PortalView : Swift.Sendable {}
